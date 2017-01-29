@@ -1,0 +1,15 @@
+# python 3.5.2
+# installed using `conda` package manager
+# other packages installed with pip
+astroid==1.4.9
+colorama==0.3.7
+Django==1.10.5
+isort==4.2.5
+lazy-object-proxy==1.2.2
+mccabe==0.6.1
+pylint==1.6.5
+pylint-django==0.7.2
+pylint-plugin-utils==0.2.4
+selenium==2.53.6
+six==1.10.0
+wrapt==1.10.8
