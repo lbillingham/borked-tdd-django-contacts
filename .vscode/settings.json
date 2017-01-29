@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "C:/Users/laurence/AppData/Local/Continuum/Anaconda3/envs/clean_django/python",
+    "python.linting.pylintArgs": ["--load-plugins", "pylint_django"]
+}
