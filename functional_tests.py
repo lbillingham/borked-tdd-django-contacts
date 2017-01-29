@@ -49,19 +49,19 @@ class NewVisitorTest(unittest.TestCase):
         # "Round Table" as an organisation
         inputbox.send_keys(Keys.ENTER)
 
-        table = self.browser.find_element_by_id('id_organisations_table')
-        rows = table.find_elements_by_tag_name('tr')
+        org_list = self.browser.find_element_by_id('id_organisations_list')
+        orgs = org_list.find_elements_by_tag_name('li')
         self.assertTrue(
-            any(row.text == 'Round Table' for row in rows),
-            'New organisation did not appear in table'
+            any(org.text == 'Round Table' for org in orgs),
+            'New organisation did not appear in list'
         )
 
         self.fail('finish the test!')
 
-        # There is another text box inviting them to add an email.
-        # Alex enters "info@rtable.com"
+        # There is another text box inviting them to add an second organisation.
+        # Alex enters "Cheese Shop"
 
-        # The page updates again, and now shows both Contact and eamil persisted
+        # The page updates again, and now shows both Organisations persisted
 
         # Alex wonders whether the site will remember their contact.
         # Then they see that the site has generated a unique URL for them
