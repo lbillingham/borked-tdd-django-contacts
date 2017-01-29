@@ -28,6 +28,8 @@ $ pip install requirements_dev.txt
 from the folder containg `manage.py` run
 
 ```shell
+$ python manage.py makemigrations
+$ python manage.py migrate
 $ python manage.py runserver
 ```
 and point a browser at `http://localhost:8000/`
