@@ -51,21 +51,25 @@ class NewVisitorTest(unittest.TestCase):
 
         org_list = self.browser.find_element_by_id('id_organisations_list')
         orgs = org_list.find_elements_by_tag_name('li')
-        self.assertTrue(
-            any(org.text == 'Round Table' for org in orgs),
-            'New organisation did not appear in list'
-        )
+        self.assertIn('Round Table', [org.text for org in orgs])
 
-        self.fail('finish the test!')
 
         # There is another text box inviting them to add an second organisation.
         # Alex enters "Cheese Shop"
+        inputbox = self.browser.find_element_by_id('id_new_organisation')
+        inputbox.send_keys('Cheese Shop')
+        inputbox.send_keys(Keys.ENTER)
 
         # The page updates again, and now shows both Organisations persisted
+        org_list = self.browser.find_element_by_id('id_organisations_list')
+        orgs = org_list.find_elements_by_tag_name('li')
+        self.assertIn('Round Table', [org.text for org in orgs])
+        self.assertIn('Cheese Shop', [org.text for org in orgs])
 
         # Alex wonders whether the site will remember their contact.
         # Then they see that the site has generated a unique URL for them
         #  -- there is some explanatory text to that effect.
+        self.fail('finish the test!')
 
         # They visit that URL - The "Round Table" contact is still there.
 

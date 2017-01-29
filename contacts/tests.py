@@ -17,3 +17,9 @@ class HomePageTest(TestCase):
         """do we actualy get sense from `home_page` view"""
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
+
+    def test_can_save_a_POST_request(self):
+        """can home page save POST?"""
+        response = self.client.post('/', data={'organisation_name': 'New Organisation'})
+        self.assertIn('New Organisation', response.content.decode())
+        self.assertTemplateUsed(response, 'home.html')

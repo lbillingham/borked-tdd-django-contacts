@@ -4,8 +4,12 @@
     </head>
     <body>
         <h1>Organisations</h1>
-        <input id="id_new_organisation" placeholder="Enter an organisation name" />
+        <form method="POST">
+            <input name="organisation_name" id="id_new_organisation" placeholder="Enter an organisation name" />
+            {% csrf_token %}
+        </form>
         <ul id="id_organisations_list">
+            <li>{{ new_organisation_name }}</li>
         </ul>
     </body>
 <html>
