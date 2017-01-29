@@ -34,13 +34,13 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn('Contacts', self.browser.title)
         # and the header mentions organisations
         header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('Orginisations', header_text)
+        self.assertIn('Organisations', header_text)
 
         # They are invited to enter a Organisation Contact straight away
         inputbox = self.browser.find_element_by_id('id_new_organisation')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
-            'Enter an orginisation name'
+            'Enter an organisation name'
         )
 
         # Alex types "Round Table." into a text box
@@ -49,10 +49,11 @@ class NewVisitorTest(unittest.TestCase):
         # "Round Table" as an organisation
         inputbox.send_keys(Keys.ENTER)
 
-        table = self.browser.find_element_by_id('id_list_organisations')
+        table = self.browser.find_element_by_id('id_organisations_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
-            any(row.text == 'Round Table' for row in rows)
+            any(row.text == 'Round Table' for row in rows),
+            'New organisation did not appear in table'
         )
 
         self.fail('finish the test!')
