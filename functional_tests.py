@@ -3,7 +3,8 @@ High level tests ensuring our users get the functionality
 they need.
 We're going to have comment driven BDD-lite
 Selenium used to drive a real browser.
-Currently only [Firefox Extended Support Release](https://www.mozilla.org/en-US/firefox/organizations/)
+Currently only
+[Firefox Extended Support Release](https://www.mozilla.org/en-US/firefox/organizations/)
 because latest F-fox doesn't place nice
 with Selenium out of the box
 """
@@ -45,7 +46,7 @@ class NewVisitorTest(unittest.TestCase):
         inputbox = self.browser.find_element_by_id('id_new_organisation')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
-            'Enter an organisation name'
+            'New organisation name'
         )
 
         # Alex types "Round Table." into a text box

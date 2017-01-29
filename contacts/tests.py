@@ -2,11 +2,8 @@
 contacts unit tests
 functional tests are in ..
 """
-from django.core.urlresolvers import resolve
 from django.test import TestCase
-from django.http import HttpRequest
 
-from contacts.views import home_page
 from contacts.models import Organisation
 
 _ENCODING = 'utf8'
@@ -22,6 +19,9 @@ class HomePageTest(TestCase):
     def test_can_save_a_POST_request(self):
         """can home page save POST?"""
         response = self.client.post('/', data={'organisation_name': 'New Organisation'})
+        self.assertEqual(Organisation.objects.count(), 1)
+        new_org = Organisation.objects.first()
+        self.assertEqual(new_org.name, 'New Organisation')
         self.assertIn('New Organisation', response.content.decode())
         self.assertTemplateUsed(response, 'home.html')
 
