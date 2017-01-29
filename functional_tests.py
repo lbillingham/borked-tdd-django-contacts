@@ -17,12 +17,14 @@ _TIME_WAIT_4_LOAD = 3  # seconds for browser to wait for pageload
 class NewVisitorTest(unittest.TestCase):
     """test we treat 1st visit properly"""
 
-    def setUp(self):
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(_TIME_WAIT_4_LOAD)
+    @classmethod
+    def setUpClass(cls):
+        cls.browser = webdriver.Firefox()
+        cls.browser.implicitly_wait(_TIME_WAIT_4_LOAD)
 
-    def tearDown(self):
-        self.browser.quit()
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
 
     def check_for_item_text_in_list(self, item_text):
         """do any of our list elements contain `item_text?"""
@@ -42,6 +44,12 @@ class NewVisitorTest(unittest.TestCase):
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('Organisations', header_text)
 
+        # Alex sees an empty list of organisations
+        org_list = self.browser.find_element_by_id('id_organisations_list')
+        orgs = org_list.find_elements_by_tag_name('li')
+        self.assertEqual([''], [org.text for org in orgs])
+
+        # Alex sees a link to add a new organisation and clicks it
         # They are invited to enter a Organisation Contact straight away
         inputbox = self.browser.find_element_by_id('id_new_organisation')
         self.assertEqual(

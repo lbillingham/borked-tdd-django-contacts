@@ -9,21 +9,32 @@ from contacts.models import Organisation
 _ENCODING = 'utf8'
 
 class HomePageTest(TestCase):
-    """for a 1st test, there's no place like..."""
+    """Test Home page resolves to showing organisations list"""
 
     def test_home_page_template_used(self):
         """do we actualy get sense from `home_page` view"""
         response = self.client.get('/')
-        self.assertTemplateUsed(response, 'home.html')
+        self.assertTemplateUsed(response, 'organisations_list.html')
+
+
+class CreateOrganisationTest(TestCase):
+    """can we create a new organisation?"""
+    def test_new_organisation_template_used(self):
+        pass
+        # response = self.client.get('/new-organisation')
+        # self.assertTemplateUsed(response, 'new_organisation.html')
 
     def test_can_save_a_POST_request(self):
-        """can home page save POST?"""
-        response = self.client.post('/', data={'organisation_name': 'New Organisation'})
-        self.assertEqual(Organisation.objects.count(), 1)
-        new_org = Organisation.objects.first()
-        self.assertEqual(new_org.name, 'New Organisation')
+        """can new organisation page save POST?"""
+        response = self.client.post('/new-organisation',
+                                    data={'organisation_name': 'New Organisation',
+                                          'organisation_email': 'a@example.com'})
         self.assertIn('New Organisation', response.content.decode())
-        self.assertTemplateUsed(response, 'home.html')
+        # self.assertTemplateUsed(response, 'new_organisation.html')
+
+        # self.assertEqual(Organisation.objects.count(), 1)
+        # new_org = Organisation.objects.first()
+        # self.assertEqual(new_org.name, 'New Organisation')
 
 
 class OrganisationModelTest(TestCase):
