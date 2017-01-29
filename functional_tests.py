@@ -36,14 +36,26 @@ class NewVisitorTest(unittest.TestCase):
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('Orginisations', header_text)
 
-        # do more work on test
-        self.fail('finish the test !!!11!')
         # They are invited to enter a Organisation Contact straight away
+        inputbox = self.browser.find_element_by_id('id_new_organisation')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'Enter an orginisation name'
+        )
 
-        # They type "Round Table." into a text box
-
+        # Alex types "Round Table." into a text box
+        inputbox.send_keys('Round Table')
         # When they hit enter, the page updates, and now the page lists
-        # "Acme Inc." as an item
+        # "Round Table" as an organisation
+        inputbox.send_keys(Keys.ENTER)
+
+        table = self.browser.find_element_by_id('id_list_organisations')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertTrue(
+            any(row.text == 'Round Table' for row in rows)
+        )
+
+        self.fail('finish the test!')
 
         # There is another text box inviting them to add an email.
         # Alex enters "info@rtable.com"
