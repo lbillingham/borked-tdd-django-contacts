@@ -13,16 +13,7 @@ _ENCODING = 'utf8'
 class HomePageTest(TestCase):
     """for a 1st test, there's no place like..."""
 
-    def test_root_url_returns_home_page_view(self):
-        """can we load home page"""
-        found = resolve('/')
-        self.assertEqual(found.func, home_page)
-
-    def test_home_page_returns_correct_html(self):
+    def test_home_page_template_used(self):
         """do we actualy get sense from `home_page` view"""
-        request = HttpRequest()
-        response = home_page(request)
-        html = response.content.decode(_ENCODING)
-        self.assertTrue(html.startswith('<html>'))
-        self.assertIn('<title>Contacts</title>', html)
-        self.assertTrue(html.endswith('<html>'))
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'home.html')
