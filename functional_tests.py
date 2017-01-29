@@ -33,7 +33,7 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn('Contacts', self.browser.title)
 
         # do more work on test
-        self.fail()
+        self.fail('finish the test !!!11!')
         # They are invited to enter a to-do item straight away
 
         # They type "Round Table." into a text box
