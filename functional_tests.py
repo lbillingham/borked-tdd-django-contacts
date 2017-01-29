@@ -20,9 +20,14 @@ class NewVisitorTest(unittest.TestCase):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(_TIME_WAIT_4_LOAD)
 
-
     def tearDown(self):
         self.browser.quit()
+
+    def check_for_item_text_in_list(self, item_text):
+        """do any of our list elements contain `item_text?"""
+        org_list = self.browser.find_element_by_id('id_organisations_list')
+        orgs = org_list.find_elements_by_tag_name('li')
+        self.assertIn(item_text, [org.text for org in orgs])
 
     def test_can_add_new_organisation_and_retrieve_later(self):
         """test adding a contact and verifying persistence"""
@@ -45,14 +50,11 @@ class NewVisitorTest(unittest.TestCase):
 
         # Alex types "Round Table." into a text box
         inputbox.send_keys('Round Table')
-        # When they hit enter, the page updates, and now the page lists
-        # "Round Table" as an organisation
         inputbox.send_keys(Keys.ENTER)
 
-        org_list = self.browser.find_element_by_id('id_organisations_list')
-        orgs = org_list.find_elements_by_tag_name('li')
-        self.assertIn('Round Table', [org.text for org in orgs])
-
+        # When they hit enter, the page updates, and now the page lists
+        # "Round Table" as an organisation
+        self.check_for_item_text_in_list('Round Table')
 
         # There is another text box inviting them to add an second organisation.
         # Alex enters "Cheese Shop"
@@ -61,10 +63,8 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
 
         # The page updates again, and now shows both Organisations persisted
-        org_list = self.browser.find_element_by_id('id_organisations_list')
-        orgs = org_list.find_elements_by_tag_name('li')
-        self.assertIn('Round Table', [org.text for org in orgs])
-        self.assertIn('Cheese Shop', [org.text for org in orgs])
+        self.check_for_item_text_in_list('Round Table')
+        self.check_for_item_text_in_list('Cheese Shop')
 
         # Alex wonders whether the site will remember their contact.
         # Then they see that the site has generated a unique URL for them
