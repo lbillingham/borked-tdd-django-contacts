@@ -38,7 +38,7 @@ class CreateOrganisationTest(TestCase):
     """can we create a new organisation?"""
     def test_new_organisation_template_used(self):
         response = self.client.get(reverse('organisations-new'))
-        self.assertTemplateUsed(response, 'new_organisation.html')
+        self.assertTemplateUsed(response, 'edit_organisation.html')
 
     def test_POST_request_returns_success(self):
         response = self.client.post(

@@ -87,12 +87,9 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Alex wonders whether the site will remember their contacts.
         # Then they see that the site has generated a unique URL for them
-        #  -- there is some explanatory text to that effect.
         self.fail('finish the test!')
 
         # They visit that URL - The "Round Table" contact is still there.
 
         # Satisfied, Alex goes back to sleep
 
-if __name__ == '__main__':
-    unittest.main()

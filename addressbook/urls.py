@@ -23,4 +23,6 @@ urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^$', views.OrganisationListView.as_view(), name='organisations-list',),
     url(r'^new-organisation$', views.CreateOrganisationView.as_view(), name='organisations-new',),
+    url(r'^edit-organisation/(?P<pk>\d+)/$', views.UpdateOrganisationView.as_view(),
+        name='organisations-edit',),
 ]

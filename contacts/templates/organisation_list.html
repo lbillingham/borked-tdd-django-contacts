@@ -9,6 +9,7 @@
         <ul id=id_organisations_list>
             {% for organisation in object_list %}
               <li class="organisation">{{ organisation }}</li>
+                  [<a href="{% url "organisations-edit" pk=organisation.id %}">edit</a>]
             {% endfor %}
         </ul>
 {% endblock %}
