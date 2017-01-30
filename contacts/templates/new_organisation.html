@@ -1,10 +1,16 @@
 <html>
     <body>
         <h1>Add Organisation</h1>
-        <form method="POST">
-            <input name="organisation_name" id="id_new_organisation_name" placeholder="New organisation name" />
-            <input name="organisation_email" id="id_new_organisation_email" placeholder="New organisation email" />
-            {% csrf_token %}
+
+        <form action="{% url "organisations-new" %}" method="POST">
+        {% csrf_token %}
+        <ul>
+          {{ form.as_ul }}
+        </ul>
+        <input id="save_organisation" type="submit" value="Save" />
         </form>
+
+        <a href="{% url "organisations-list" %}">back to list</a>
+
     </body>
-<html>
+</html>

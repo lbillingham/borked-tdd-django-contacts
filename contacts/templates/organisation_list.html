@@ -1,0 +1,14 @@
+<html>
+    <head>
+    <title>Contacts</title>
+    </head>
+    <body>
+        <h1>Organisations</h1>
+        <h3><a href="{% url "organisations-new" %}" id="id_add_organisation">Add Organisation</a></h3>
+        <ul id=id_organisations_list>
+            {% for organisation in object_list %}
+              <li class="organisation">{{ organisation }}</li>
+            {% endfor %}
+        </ul>
+    </body>
+<html>

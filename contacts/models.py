@@ -7,6 +7,8 @@ class Organisation(models.Model):
     email = models.EmailField(default='', null=False)
 
     class Meta:
+        # @performance@
+        # alphabetises object but can make db lookups slow
         ordering = ('name',)
 
     def __str__(self):
