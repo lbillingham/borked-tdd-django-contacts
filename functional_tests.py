@@ -50,32 +50,51 @@ class NewVisitorTest(unittest.TestCase):
         self.assertEqual([''], [org.text for org in orgs])
 
         # Alex sees a link to add a new organisation and clicks it
+        link = self.browser.find_element_by_id('id_add_organisation')
+        link.click()
+
+        # Alex is redirected to the add orginisation page
         # They are invited to enter a Organisation Contact straight away
-        inputbox = self.browser.find_element_by_id('id_new_organisation')
+        # ... adding the organisation name
+        namebox = self.browser.find_element_by_id('id_new_organisation_name')
         self.assertEqual(
-            inputbox.get_attribute('placeholder'),
+            namebox.get_attribute('placeholder'),
             'New organisation name'
         )
+        emailbox = self.browser.find_element_by_id('id_new_organisation_email')
+        self.assertEqual(
+            emailbox.get_attribute('placeholder'),
+            'New organisation email'
+        )
 
-        # Alex types "Round Table." into a text box
-        inputbox.send_keys('Round Table')
-        inputbox.send_keys(Keys.ENTER)
+        # Alex types "Round Table." into the name box,
+        namebox.send_keys('Round Table')
+        namebox.send_keys(Keys.ENTER)
+        # ... and rtable@example.com into the email box
+        emailbox.send_keys('rtable@example.com')
+        emailbox.send_keys(Keys.ENTER)
 
-        # When they hit enter, the page updates, and now the page lists
-        # "Round Table" as an organisation
+        # When they hit enter, Alex is returned to the home page
+        self.assertEqual(self.browser.current_url, '/')
+        # which now lists "Round Table" as an organisation
         self.check_for_item_text_in_list('Round Table')
 
-        # There is another text box inviting them to add an second organisation.
+        # Alex follows the link to add another organisation.
+        self.browser.find_element_by_id('id_add_organisation').click()
         # Alex enters "Cheese Shop"
-        inputbox = self.browser.find_element_by_id('id_new_organisation')
+        inputbox = self.browser.find_element_by_id('id_new_organisation_name')
         inputbox.send_keys('Cheese Shop')
         inputbox.send_keys(Keys.ENTER)
+        emailbox = self.browser.find_element_by_id('id_new_organisation_email')
+        emailbox.send_keys('cheese_shop@example.com')
+        emailbox.send_keys(Keys.ENTER)
 
-        # The page updates again, and now shows both Organisations persisted
+        # Alex is returned to the home page agiain
+        # it now shows both Organisations persisted
         self.check_for_item_text_in_list('Round Table')
         self.check_for_item_text_in_list('Cheese Shop')
 
-        # Alex wonders whether the site will remember their contact.
+        # Alex wonders whether the site will remember their contacts.
         # Then they see that the site has generated a unique URL for them
         #  -- there is some explanatory text to that effect.
         self.fail('finish the test!')
