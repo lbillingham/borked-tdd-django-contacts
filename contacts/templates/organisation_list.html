@@ -8,8 +8,10 @@
         <h3><a href="{% url "organisations-new" %}" id="id_add_organisation">Add Organisation</a></h3>
         <ul id=id_organisations_list>
             {% for organisation in object_list %}
-              <li class="organisation">{{ organisation }}</li>
-                  [<a href="{% url "organisations-edit" pk=organisation.id %}">edit</a>]
+              <li class="organisation">
+                  {{ organisation }}
+                  [<a id="id_edit_organisation" href="{% url "organisations-edit" pk=organisation.id %}">edit</a>]
+              </li>
             {% endfor %}
         </ul>
 {% endblock %}
