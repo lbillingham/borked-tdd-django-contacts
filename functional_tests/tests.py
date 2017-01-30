@@ -9,22 +9,21 @@ because latest F-fox doesn't place nice
 with Selenium out of the box
 """
 import unittest
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 _TIME_WAIT_4_LOAD = 3  # seconds for browser to wait for pageload
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
     """test we treat 1st visit properly"""
 
-    @classmethod
-    def setUpClass(cls):
-        cls.browser = webdriver.Firefox()
-        cls.browser.implicitly_wait(_TIME_WAIT_4_LOAD)
+    def setUp(self):
+        self.browser = webdriver.Firefox()
+        self.browser.implicitly_wait(_TIME_WAIT_4_LOAD)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
+    def tearDown(self):
+        self.browser.quit()
 
     def check_for_item_text_in_list(self, item_text):
         """do any of our list elements contain `item_text?"""
@@ -36,7 +35,7 @@ class NewVisitorTest(unittest.TestCase):
         """test adding a contact and verifying persistence"""
         # Alex has heard about an new online address book
         # and checks out its homepage
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # Alex notices the page title mentions contacts
         self.assertIn('Contacts', self.browser.title)
@@ -75,7 +74,7 @@ class NewVisitorTest(unittest.TestCase):
         emailbox.send_keys(Keys.ENTER)
 
         # When they hit enter, Alex is returned to the home page
-        self.assertEqual(self.browser.current_url, '/')
+        self.assertRegex(self.browser.current_url, '/$')
         # which now lists "Round Table" as an organisation
         self.check_for_item_text_in_list('Round Table')
 
