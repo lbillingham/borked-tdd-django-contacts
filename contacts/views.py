@@ -1,22 +1,25 @@
 """
 bulding out home page, contacts etc.etc.
 """
-from django.shortcuts import redirect, render
+# from django.shortcuts import redirect, render
+from django.core.urlresolvers import reverse
+from django.views.generic import CreateView, ListView
+
 
 from contacts.models import Organisation
 
 
-def home_page(request):
-    """no place like home"""
-    return render(request, 'organisations_list.html')
+class OrganisationListView(ListView):
 
-def create_organisation(request):
-    if request.method == 'POST':
-        print('CreateCreate\n{}\nCreateCreate'.format(request))
-        Organisation.objects.create(
-            name=request.POST.get('organisation_name', ''),
-            email=request.POST.get('organisation_email', '')
-        )
-        return redirect('/')
-    else:
-        return render(request, 'new_organisation.html')
+    model = Organisation
+    template_name = 'organisation_list.html'
+
+
+# class CreateOrganisationView(CreateView):
+    # model = Organisation
+    # template_name = 'new_organisation.html'
+    # fields = ('name', 'email', )
+#
+    # def get_success_url(self):
+        # return reverse('organisations-list')
+#

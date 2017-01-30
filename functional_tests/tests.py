@@ -55,16 +55,8 @@ class NewVisitorTest(LiveServerTestCase):
         # Alex is redirected to the add orginisation page
         # They are invited to enter a Organisation Contact straight away
         # ... adding the organisation name
-        namebox = self.browser.find_element_by_id('id_new_organisation_name')
-        self.assertEqual(
-            namebox.get_attribute('placeholder'),
-            'New organisation name'
-        )
-        emailbox = self.browser.find_element_by_id('id_new_organisation_email')
-        self.assertEqual(
-            emailbox.get_attribute('placeholder'),
-            'New organisation email'
-        )
+        namebox = self.browser.find_element_by_id('id_name')
+        emailbox = self.browser.find_element_by_id('id_email')
 
         # Alex types "Round Table." into the name box,
         namebox.send_keys('Round Table')

@@ -1,0 +1,13 @@
+<html>
+    <head>
+    <title>Contacts</title>
+    </head>
+    <body>
+        <h1>Organisations</h1>
+        <ul>
+            {% for organisation in object_list %}
+              <li class="organisation">{{ organisation }}</li>
+            {% endfor %}
+        </ul>
+    </body>
+<html>

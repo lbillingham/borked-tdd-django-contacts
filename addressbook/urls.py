@@ -20,6 +20,6 @@ from contacts import views
 
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
-    url(r'^$', views.home_page, name='home'),
-    url(r'^new-organisation$', views.create_organisation, name='organisations-new',)
+    url(r'^$', views.OrganisationListView.as_view(), name='organisations-list',),
+    # url(r'^new$', views.CreateOrganisationView.as_view(), name='contacts-new',)
 ]
