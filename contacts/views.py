@@ -15,11 +15,11 @@ class OrganisationListView(ListView):
     template_name = 'organisation_list.html'
 
 
-# class CreateOrganisationView(CreateView):
-    # model = Organisation
-    # template_name = 'new_organisation.html'
-    # fields = ('name', 'email', )
-#
-    # def get_success_url(self):
-        # return reverse('organisations-list')
-#
+class CreateOrganisationView(CreateView):
+
+    model = Organisation
+    template_name = 'new_organisation.html'
+    fields = ('name', 'email', )
+
+    def get_success_url(self):
+        return reverse('organisations-list')

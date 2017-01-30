@@ -4,6 +4,7 @@
     </head>
     <body>
         <h1>Organisations</h1>
+        <h3><a href="{% url "organisations-new" %}">Add Organisation</a></h3>
         <ul>
             {% for organisation in object_list %}
               <li class="organisation">{{ organisation }}</li>

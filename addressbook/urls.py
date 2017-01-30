@@ -21,5 +21,5 @@ from contacts import views
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^$', views.OrganisationListView.as_view(), name='organisations-list',),
-    # url(r'^new$', views.CreateOrganisationView.as_view(), name='contacts-new',)
+    url(r'^new$', views.CreateOrganisationView.as_view(), name='organisations-new',),
 ]
