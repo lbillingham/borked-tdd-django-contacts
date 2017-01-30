@@ -1,0 +1,10 @@
+<html>
+    <body>
+        <h1>Add Organisation</h1>
+        <form method="POST">
+            <input name="organisation_name" id="id_new_organisation_name" placeholder="New organisation name" />
+            <input name="organisation_email" id="id_new_organisation_email" placeholder="New organisation email" />
+            {% csrf_token %}
+        </form>
+    </body>
+<html>

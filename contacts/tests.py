@@ -9,21 +9,43 @@ from contacts.models import Organisation
 _ENCODING = 'utf8'
 
 class HomePageTest(TestCase):
-    """for a 1st test, there's no place like..."""
+    """Test Home page resolves to showing organisations list"""
 
     def test_home_page_template_used(self):
         """do we actualy get sense from `home_page` view"""
         response = self.client.get('/')
-        self.assertTemplateUsed(response, 'home.html')
+        self.assertTemplateUsed(response, 'organisations_list.html')
+
+
+class CreateOrganisationTest(TestCase):
+    """can we create a new organisation?"""
+    create_org_url = '/new-organisation'
+    default_data = {'organisation_name': 'New Organisation',
+                    'organisation_email': 'a@example.com'}
+
+    def test_new_organisation_template_used(self):
+        """with a GET/visit, do we render template?"""
+        response = self.client.get(self.create_org_url)
+        self.assertTemplateUsed(response, 'new_organisation.html')
 
     def test_can_save_a_POST_request(self):
-        """can home page save POST?"""
-        response = self.client.post('/', data={'organisation_name': 'New Organisation'})
+        """can new organisation page save POST? to Model"""
+        print('testing save POST')
+        self.client.post(self.create_org_url,
+                         data=self.default_data)
+
         self.assertEqual(Organisation.objects.count(), 1)
         new_org = Organisation.objects.first()
         self.assertEqual(new_org.name, 'New Organisation')
-        self.assertIn('New Organisation', response.content.decode())
-        self.assertTemplateUsed(response, 'home.html')
+        self.assertEqual(new_org.email, 'a@example.com')
+
+    def test_redirects_after_POST(self):
+        """after creating an organisation, we should redirect to home"""
+        print('testing POST redirect')
+        response = self.client.post(self.create_org_url,
+                                    data=self.default_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/')
 
 
 class OrganisationModelTest(TestCase):
