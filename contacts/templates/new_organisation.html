@@ -1,5 +1,6 @@
-<html>
-    <body>
+{% extends "base.html" %}
+
+{% block content %}
         <h1>Add Organisation</h1>
 
         <form action="{% url "organisations-new" %}" method="POST">
@@ -11,6 +12,4 @@
         </form>
 
         <a href="{% url "organisations-list" %}">back to list</a>
-
-    </body>
-</html>
+{% endblock %}

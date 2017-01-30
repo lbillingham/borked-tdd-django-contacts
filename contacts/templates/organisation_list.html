@@ -1,5 +1,6 @@
-<html>
-    <head>
+{% extends "base.html" %}
+
+{% block content %}
     <title>Contacts</title>
     </head>
     <body>
@@ -10,5 +11,4 @@
               <li class="organisation">{{ organisation }}</li>
             {% endfor %}
         </ul>
-    </body>
-<html>
+{% endblock %}
