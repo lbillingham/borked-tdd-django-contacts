@@ -46,7 +46,7 @@ class NewVisitorTest(LiveServerTestCase):
         # Alex sees an empty list of organisations
         org_list = self.browser.find_element_by_id('id_organisations_list')
         orgs = org_list.find_elements_by_tag_name('li')
-        self.assertEqual([''], [org.text for org in orgs])
+        self.assertEqual([], [org.text for org in orgs])
 
         # Alex sees a link to add a new organisation and clicks it
         link = self.browser.find_element_by_id('id_add_organisation')
@@ -73,10 +73,10 @@ class NewVisitorTest(LiveServerTestCase):
         # Alex follows the link to add another organisation.
         self.browser.find_element_by_id('id_add_organisation').click()
         # Alex enters "Cheese Shop"
-        inputbox = self.browser.find_element_by_id('id_new_organisation_name')
-        inputbox.send_keys('Cheese Shop')
-        inputbox.send_keys(Keys.ENTER)
-        emailbox = self.browser.find_element_by_id('id_new_organisation_email')
+        namebox = self.browser.find_element_by_id('id_name')
+        namebox.send_keys('Cheese Shop')
+        namebox.send_keys(Keys.ENTER)
+        emailbox = self.browser.find_element_by_id('id_email')
         emailbox.send_keys('cheese_shop@example.com')
         emailbox.send_keys(Keys.ENTER)
 
